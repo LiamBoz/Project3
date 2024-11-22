@@ -19,8 +19,11 @@ We will create a **317x317 Maze-Based Matrix** featuring:
   - Dijkstra’s
   - Others in the future.
 
-This project combines live visualization and dynamic statistics for an engaging user experience. Technologies and implementation specifics will be detailed as the project progresses.
-
+### To Be Decided:
+- Will it be displayed in a website
+- What language will be used
+- What libraries/frameworks will be used
+- Will we use a library for random maze generation?
 ---
 
 ## Contributing Guidelines
