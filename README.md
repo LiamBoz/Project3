@@ -1,11 +1,58 @@
 # Project3
 
+## Overview
+We will create a **317x317 Maze-Based Matrix** featuring:
+- **Entrance**: `[row/2, 0]` (middle-left).
+- **Exit**: `[317, row/2]` (middle-right).
+- A **sprite** starting at the entrance that traverses the maze live, followed by a tail sprite.
+- **Live Statistics Counter** beneath the maze:
+  - Nodes visited
+  - Time taken
+  - Memory and space usage
+  - Other useful metrics (updated live and finalized at the end).
 
-We will create a 317x317 Maze Based Matrix which will have an entrance [row/2, 0] and an exit [317, row/2] so that they are at the middle-left and middle-right of the maze respectively. We will have a sprite which will start at the entrance, and for that specific maze based on the selected traversal method, will traverse through the maze live with a tail sprite following it. Under the maze, as you watch it traverse through, important and useful statistics will populate in a live-counter uptick style, showing the nodes visited, time taken, memory, space, and other useful things as they change throughout the program before finalizing at the end. We will also have a additional maze button, which will increase the number of mazes by 1 along with the ability to choose that mazes' algorithm by which it will be traversed, along with its important statistics and the start button which will play all sprites traversing all mazes in sync. 
+### Additional Features
+- **Add Maze Button**: Adds a new maze, allowing selection of its traversal algorithm.
+- **Start Button**: Runs all sprites traversing all mazes in sync.
+- **Algorithms**: Initially supporting BFS and A*, with plans to expand to:
+  - DFS
+  - Dijkstra’s
+  - Others in the future.
 
-For this project, we will start with BFS and A* algorithms, and hopefully expand to others such as DFS, Djikstras, and more.
+This project combines live visualization and dynamic statistics for an engaging user experience. Technologies and implementation specifics will be detailed as the project progresses.
 
-The technologies used and specifics of this project will be further expanded on. 
+---
 
-This project was created by Christian Luddy, Veronika Matos, and Liam Bozarth
-.
+## Contributing Guidelines
+Our **primary branch** is `main`. When working on new features, please adhere to the following guidelines:
+
+### Branch Naming
+- Use the convention: `username/ticket-id` or `ticket-id` or if not a ticket, just the topic you're working on
+
+### Workflow
+1. **Branch off `main`** using the naming convention.
+2. **Work on your feature**, focusing on functionality rather than a clean commit history.
+3. **Open a Pull Request (PR)** against `main`:
+   - Ensure the title is a clean commit message ([commit message guide](https://cbea.ms/git-commit/)).
+4. **Resolve all feedback** and discussions on your PR.
+5. **Get approval** from at least one other developer.
+6. **Merge the PR**:
+   - Use **Squash and Merge** unless the commit history adds significant value.
+
+---
+
+## Step-By-Step Guide
+1. Branch off `main` (follow the naming convention).
+2. Implement your feature.
+3. Open a PR with a clean title.
+4. Address feedback and resolve all comments.
+5. Obtain approval.
+6. Merge (squash or preserve history as appropriate).
+
+---
+
+## Credits
+This project was created by:
+- **Christian Luddy**
+- **Veronika Matos**
+- **Liam Bozarth**
