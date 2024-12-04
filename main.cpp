@@ -32,7 +32,7 @@ int main() {
     Maze m = Maze(width, height);
     m.generate_maze();
     m.remove_wall(m.height-1,m.width-1,2);
-    auto window = sf::RenderWindow({(uint)WINDOW_WIDTH, (uint)WINDOW_HEIGHT}, "CMake SFML Project");
+    auto window = sf::RenderWindow({(int)WINDOW_WIDTH, (int)WINDOW_HEIGHT}, "CMake SFML Project");
     m.show(window);
 
     window.setFramerateLimit(144);

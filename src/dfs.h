@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <maze.h>
+#include <chrono>
+
 using namespace std;
 class dfs {
     std::vector<std::vector<int>> visited;

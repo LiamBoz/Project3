@@ -15,8 +15,8 @@ class bfs {
     bool finished = false;
     int step = 0;
     pair<int,int> current_backtrack;
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-    std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
+    chrono::time_point<chrono::steady_clock> start_time;
+    chrono::time_point<chrono::steady_clock> end_time;
 public:
     int steps_taken = 0;
     bfs(Maze* maze);
