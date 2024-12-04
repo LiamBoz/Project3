@@ -1,15 +1,14 @@
 #include "bfs.h"
-#include <chrono>
-#include <__filesystem/path.h>
 
-std::chrono::steady_clock::time_point start_time, end_time;
 
 bfs::bfs(Maze *maze){
     this->visited = std::vector<std::vector<int>>(maze->height, std::vector<int>(maze->width, 0));
-    this->parents = std::vector<std::vector<std::pair<int,int>>>(maze->width, std::vector<std::pair<int,int>>(maze->width, make_pair(-1,-1)));
+    this->parents = std::vector<std::vector<std::pair<int,int>>>(maze->width, std::vector<std::pair<int,int>>(maze->width, make_pair(0,0)));
     this->maze = maze;
     vertex_queue = std::queue<std::pair<int,int>>();
     vertex_queue.emplace(make_pair(0,0));
+    start_time = std::chrono::steady_clock::time_point::min();
+    end_time = std::chrono::steady_clock::time_point::min();
 }
 
 bool bfs::can_visit_vertex(int x, int y, int direction) {
@@ -23,19 +22,13 @@ bool bfs::can_visit_vertex(int x, int y, int direction) {
 
 int bfs::step_forward() {
 
-    if (!finished && vertex_queue.empty()) {
+    if (start_time == std::chrono::steady_clock::time_point::min()) {
         start_time = std::chrono::steady_clock::now();
-    }
-
-    if (finished) {
-        end_time = std::chrono::steady_clock::now();
-        auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-        std::cout << "Elapsed time: " << elapsed_time.count() << " milliseconds" << std::endl;
     }
 
     if(vertex_queue.empty()) return 0;
     if(finished) {
-        maze->vertex_colors[current_backtrack.first][current_backtrack.second] = {10,100,50, 100};
+        maze->vertex_colors[current_backtrack.first][current_backtrack.second] = {10,200,150, 100};
         if(current_backtrack.first == 0 && current_backtrack.second == 0) {
             return 1;
         }
@@ -44,15 +37,19 @@ int bfs::step_forward() {
     }
     int x = vertex_queue.front().first;
     int y = vertex_queue.front().second;
+    if(maze->vertex_colors[y][x] == sf::Color::White) {
+        //maze->vertex_colors[y][x] = {0,0,0};
+    }
     if(y == maze->height - 1 && x == maze->width-1) {
         finished = true;
-        maze->vertex_colors[y][x] = {10,200,5, 100};
         current_backtrack.first = y;
         current_backtrack.second = x;
         return 1;
     }
-    std::cout << y << " " << x << std::endl;
-    maze->vertex_colors[y][x] = {10,50,100, 100};
+
+    maze->vertex_colors[y][x] = {10,100,200, 100};
+    steps_taken++;
+
     vertex_queue.pop();
 
     for(int i = 0; i < 4; i ++) {

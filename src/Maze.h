@@ -7,7 +7,7 @@
 #include <random>
 #include <SFML/Graphics.hpp>
 
-constexpr float WINDOW_WIDTH = 1000.0f;
+constexpr float WINDOW_WIDTH = 1920.0f;
 constexpr float WINDOW_HEIGHT = 1000.0f;
 constexpr float MAZE_PIXEL_WIDTH = 950.0f;
 constexpr float MAZE_PIXEL_HEIGHT = 950.0f;
@@ -18,6 +18,7 @@ class Maze {
     vector<pair<int, int>> direction_list = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}; //up, right, down, left
 public:
     vector<vector<sf::Color>> vertex_colors;
+    vector<vector<sf::Color>> vertex_colors2;
     int width;
     int height;
     Maze(int width, int height);

@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <maze.h>
+#include <chrono>
+
 
 class bfs {
     std::vector<std::vector<int>> visited;
@@ -13,7 +15,10 @@ class bfs {
     bool finished = false;
     int step = 0;
     pair<int,int> current_backtrack;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
 public:
+    int steps_taken = 0;
     bfs(Maze* maze);
     bool can_visit_vertex(int x, int y, int direction);
     int step_forward();

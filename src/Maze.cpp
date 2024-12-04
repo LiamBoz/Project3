@@ -5,7 +5,8 @@ Maze::Maze(int width, int height) {
     this->height = height;
 
     this->vertices = vector<vector<char> >(height, vector<char>(width, 15)); // start with all walls.
-    this->vertex_colors = vector<vector<sf::Color>>(height, vector<sf::Color>(width, {255,255,255}));
+    this->vertex_colors = vector<vector<sf::Color> >(height, vector<sf::Color>(width, sf::Color::White));
+    this->vertex_colors2 = vector<vector<sf::Color> >(height, vector<sf::Color>(width, sf::Color::White));
 }
 
 random_device rd;
@@ -74,7 +75,7 @@ void Maze::generate_maze() {
     }
 }
 
-bool Maze::check_if_wall(int row, int col,int direction) {
+bool Maze::check_if_wall(int row, int col, int direction) {
     return (vertices[row][col] & ((char) pow(2, direction))) == ((char) pow(2, direction));
 }
 
@@ -137,13 +138,22 @@ void Maze::show(sf::RenderWindow &window) {
         for (int col = 0; col < width; col++) {
             float line_width = MAZE_PIXEL_WIDTH / width;
             float line_height = MAZE_PIXEL_HEIGHT / height;
-            float start_x = (WINDOW_WIDTH - MAZE_PIXEL_WIDTH) / 2;
+            //float start_x = (WINDOW_WIDTH - MAZE_PIXEL_WIDTH) / 2;
+            float start_x = 20;
             float start_y = (WINDOW_HEIGHT - MAZE_PIXEL_HEIGHT) / 2;
 
             sf::RectangleShape rectangle(sf::Vector2f(line_width, line_height));
-            rectangle.setPosition(start_x + line_width * (float)col, start_y + line_height * (float)row);
-            rectangle.setFillColor(vertex_colors[row][col]);
-            window.draw(rectangle);
+            rectangle.setPosition(start_x  + line_width * (float) col, start_y  + line_height * (float) row);
+
+            if (vertex_colors[row][col] != sf::Color::White) {
+                rectangle.setFillColor(vertex_colors[row][col]);
+                window.draw(rectangle);
+            }
+
+            if (vertex_colors2[row][col] != sf::Color::White) {
+                rectangle.setFillColor(vertex_colors2[row][col]);
+                window.draw(rectangle);
+            }
 
             if (check_if_wall(row, col, 0)) {
                 sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
@@ -183,11 +193,12 @@ void Maze::show(sf::RenderWindow &window) {
             }
         }
     }
-    window.display();
+    //window.display();
 }
+
 void Maze::reset() {
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
             this->vertices[i][j] = 15;
         }
     }
