@@ -128,17 +128,6 @@ bool Maze::check_if_wall(int row, int col, int direction) {
     return (vertices[row][col] & ((char) pow(2, direction))) == ((char) pow(2, direction));
 }
 
-void Maze::place_wall(int row, int col, int direction) {
-    int x = std::pow(2, direction);
-    this->vertices[row][col] |= (char) pow(2, direction);
-    int other_row = row + direction_list[direction].second;
-    int other_col = col + direction_list[direction].first;
-    if (other_row < 0 || other_col < 0 || other_row >= height || other_col >= width) return;
-    direction += 2;
-    direction %= 4;
-    this->vertices[other_row][other_col] |= (char) pow(2, direction);
-}
-
 void Maze::remove_wall(int row, int col, int direction) {
     this->vertices[row][col] &= ~(char) pow(2, direction);
     int other_row = row + direction_list[direction].second;
@@ -148,27 +137,6 @@ void Maze::remove_wall(int row, int col, int direction) {
     direction %= 4;
     this->vertices[other_row][other_col] &= ~(char) pow(2, direction);
 }
-
-void Maze::place_walls(int row, int col, int directions[4]) {
-    for (int i = 0; i < 4; i++) {
-        if (directions[i] == 1) {
-            place_wall(row, col, i);
-        }
-    }
-}
-
-void Maze::place_walls_for_directions(int row, int col, int from_direction, int to_direction) {
-    int walls[] = {1, 1, 1, 1};
-
-    walls[to_direction] = 0;
-
-    from_direction += 2; // invert to place the walls
-    from_direction %= 4; //
-    walls[from_direction] = 0;
-
-    place_walls(row, col, walls);
-}
-
 
 void Maze::print_maze() {
     std::string output;

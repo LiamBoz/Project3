@@ -25,15 +25,11 @@ public:
     int height;
     Maze(int width, int height);
     bool check_if_wall(int row, int col, int direction);  //right up left down for the bits
-    void place_wall(int row, int col, int direction);
     void remove_wall(int row, int col, int direction);
-    void place_walls(int row, int col, int directions[4]);
-    void place_walls_for_directions(int row, int col, int from_direction, int to_direction);
     void print_maze();
     void show(sf::RenderWindow& window);
     void generate_maze();
     bool visitable_vertex(int x, int y);
-    void update_nodes_counter();  // for sf
     void reset();
     void make_lines();
 };
