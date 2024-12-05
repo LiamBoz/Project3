@@ -1,3 +1,4 @@
+
 # Project3
 
 ## Overview
@@ -53,6 +54,39 @@ Our **primary branch** is `main`. When working on new features, please adhere to
 6. Merge (squash or preserve history as appropriate).
 
 ---
+
+
+## Building-and-Running
+
+Follow these steps to build and run the project:
+
+1. **Edit Maze Dimensions**  
+
+   - Modify the maze dimensions in `main.cpp`.
+
+2. **Build the Project**  
+
+   - Create a build directory:  
+  `mkdir build`
+
+   - Navigate to the build directory:  
+     `cd build`
+
+   - Generate the CMake files:  
+     `cmake ..`
+
+   - Build:  
+     `cmake -DCMAKE_BUILD_TYPE=Release ..`
+
+3. **Run the Program**  
+
+   - Execute the generated output file.
+
+4. **Generate and Solve Mazes**  
+
+   - Click within the program to generate a new maze.
+5. **Enjoy Watching Maze Solutions**
+
 
 ## Credits
 This project was created by:
