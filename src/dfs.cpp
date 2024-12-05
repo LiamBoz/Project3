@@ -52,7 +52,7 @@ int dfs::step_forward() {
         current_backtrack.second = x;
         return 1;
     }
-    std::cout << y << " " << x << std::endl;
+    //std::cout << y << " " << x << std::endl;
 
     maze->vertex_colors2[y][x] = {200,130,5, 100};
 

@@ -3,8 +3,8 @@
 using namespace std;
 
 // maze size, will be changed later but is 20x20 for ease of use
-const int width = 50;
-const int height = 50;
+const int width = 317;
+const int height = 317;
 
 #include <iostream>
 #include <vector>
@@ -36,16 +36,18 @@ int main() {
     m.show(window);
 
     window.setFramerateLimit(144);
-    int frame = 0;
+    bool started = false;
     dfs d = dfs(&m);
     bfs b = bfs(&m);
 
     sf::Text text;
     sf::Font font;
-    font.loadFromFile("src/NotoSans-VariableFont_wdth,wght.ttf");
+    font.loadFromFile("NotoSans-VariableFont_wdth,wght.ttf");
     text.setFont(font);
     text.setCharacterSize(40);
     text.setFillColor(sf::Color::Black);
+
+    chrono::high_resolution_clock::time_point last_frame = std::chrono::high_resolution_clock::now();
 
     while (window.isOpen()) {
         for (auto event = sf::Event(); window.pollEvent(event);)
@@ -60,13 +62,22 @@ int main() {
                 // m.generate_maze();
                 // m.remove_wall(m.height-1,m.width-1,2);
                 //std :: cout << b.step_forward() << std::endl;
-                frame++;
+                started = true;
             }
         }
-        if(frame !=  0) {
-            b.step_forward();
-            d.step_forward();
+        chrono::high_resolution_clock::time_point now_frame = std::chrono::high_resolution_clock::now();
+        int dt = std::chrono::duration_cast<std::chrono::milliseconds>(now_frame-last_frame).count();
+        //std::cout << dt << std::endl;
+        last_frame = now_frame;
 
+
+        if(started) {
+            double repeat = (dt / ((double)1000/ (double)1000)); // target framerate / how many moves to make a second
+            std::cout<<repeat<<std::endl;
+            for(int i = 0; i <= repeat; i++) {
+                b.step_forward();
+                d.step_forward();
+            }
         }
         m.show(window);
         text.setString(to_string(b.steps_taken));
@@ -76,6 +87,8 @@ int main() {
         text.setPosition(sf::Vector2f(1400,50));
         window.draw(text);
         window.display();
+
+
     }
     return 0;
 }

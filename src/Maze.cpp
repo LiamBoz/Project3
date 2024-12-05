@@ -7,6 +7,8 @@ Maze::Maze(int width, int height) {
     this->vertices = vector<vector<char> >(height, vector<char>(width, 15)); // start with all walls.
     this->vertex_colors = vector<vector<sf::Color> >(height, vector<sf::Color>(width, sf::Color::White));
     this->vertex_colors2 = vector<vector<sf::Color> >(height, vector<sf::Color>(width, sf::Color::White));
+
+    this->lines = sf::VertexArray(sf::Lines);
 }
 
 random_device rd;
@@ -73,7 +75,54 @@ void Maze::generate_maze() {
             vertex_stack.pop();
         }
     }
+    make_lines();
 }
+
+void Maze::make_lines() {
+    lines.clear();
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            float line_width = MAZE_PIXEL_WIDTH / width;
+            float line_height = MAZE_PIXEL_HEIGHT / height;
+
+            float start_x = 20;
+            float start_y = (WINDOW_HEIGHT - MAZE_PIXEL_HEIGHT) / 2;
+
+            sf::RectangleShape rectangle(sf::Vector2f(line_width, line_height));
+            rectangle.setPosition(start_x + line_width * (float) col, start_y + line_height * (float) row);
+
+            if (check_if_wall(row, col, 0)) {
+                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
+                                                start_y + line_height * (float) row);
+
+                lines.append(sf::Vertex(pos, sf::Color::Black));
+                lines.append(sf::Vertex(pos + sf::Vector2f(line_width, 0), sf::Color::Black));
+            }
+            if (check_if_wall(row, col, 1)) {
+                sf::Vector2f pos = sf::Vector2f(start_x + line_width * ((float) col + 1),
+                                                start_y + line_height * (float) row);
+
+                lines.append(sf::Vertex(pos, sf::Color::Black));
+                lines.append(sf::Vertex(pos + sf::Vector2f(0, line_height), sf::Color::Black));
+            }
+            if (check_if_wall(row, col, 2)) {
+                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
+                                                start_y + line_height * ((float) row + 1));
+
+                lines.append(sf::Vertex(pos, sf::Color::Black));
+                lines.append(sf::Vertex(pos + sf::Vector2f(line_width, 0), sf::Color::Black));
+            }
+            if (check_if_wall(row, col, 3)) {
+                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
+                                                start_y + line_height * (float) row);
+
+                lines.append(sf::Vertex(pos, sf::Color::Black));
+                lines.append(sf::Vertex(pos + sf::Vector2f(0, line_height), sf::Color::Black));
+            }
+        }
+    }
+}
+
 
 bool Maze::check_if_wall(int row, int col, int direction) {
     return (vertices[row][col] & ((char) pow(2, direction))) == ((char) pow(2, direction));
@@ -143,7 +192,7 @@ void Maze::show(sf::RenderWindow &window) {
             float start_y = (WINDOW_HEIGHT - MAZE_PIXEL_HEIGHT) / 2;
 
             sf::RectangleShape rectangle(sf::Vector2f(line_width, line_height));
-            rectangle.setPosition(start_x  + line_width * (float) col, start_y  + line_height * (float) row);
+            rectangle.setPosition(start_x + line_width * (float) col, start_y + line_height * (float) row);
 
             if (vertex_colors[row][col] != sf::Color::White) {
                 rectangle.setFillColor(vertex_colors[row][col]);
@@ -154,46 +203,10 @@ void Maze::show(sf::RenderWindow &window) {
                 rectangle.setFillColor(vertex_colors2[row][col]);
                 window.draw(rectangle);
             }
-
-            if (check_if_wall(row, col, 0)) {
-                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
-                                                start_y + line_height * (float) row);
-                sf::Vertex line[] = {
-                    sf::Vertex(pos, sf::Color::Black),
-                    sf::Vertex(pos + sf::Vector2f(line_width, 0), sf::Color::Black),
-                };
-                window.draw(line, 2, sf::Lines);
-            }
-            if (check_if_wall(row, col, 1)) {
-                sf::Vector2f pos = sf::Vector2f(start_x + line_width * ((float) col + 1),
-                                                start_y + line_height * (float) row);
-                sf::Vertex line[] = {
-                    sf::Vertex(pos, sf::Color::Black),
-                    sf::Vertex(pos + sf::Vector2f(0, line_height), sf::Color::Black),
-                };
-                window.draw(line, 2, sf::Lines);
-            }
-            if (check_if_wall(row, col, 2)) {
-                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
-                                                start_y + line_height * ((float) row + 1));
-                sf::Vertex line[] = {
-                    sf::Vertex(pos, sf::Color::Black),
-                    sf::Vertex(pos + sf::Vector2f(line_width, 0), sf::Color::Black),
-                };
-                window.draw(line, 2, sf::Lines);
-            }
-            if (check_if_wall(row, col, 3)) {
-                sf::Vector2f pos = sf::Vector2f(start_x + line_width * (float) col,
-                                                start_y + line_height * (float) row);
-                sf::Vertex line[] = {
-                    sf::Vertex(pos, sf::Color::Black),
-                    sf::Vertex(pos + sf::Vector2f(0, line_height), sf::Color::Black),
-                };
-                window.draw(line, 2, sf::Lines);
-            }
         }
     }
     //window.display();
+    window.draw(lines);
 }
 
 void Maze::reset() {

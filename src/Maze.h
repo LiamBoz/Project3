@@ -16,6 +16,8 @@ using namespace std;
 class Maze {
     std::vector<std::vector<char>> vertices;  //1 byte first 4 bits represent walls
     vector<pair<int, int>> direction_list = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}; //up, right, down, left
+    sf::VertexArray lines;
+    bool lines_generated = false;
 public:
     vector<vector<sf::Color>> vertex_colors;
     vector<vector<sf::Color>> vertex_colors2;
@@ -33,6 +35,7 @@ public:
     bool visitable_vertex(int x, int y);
     void update_nodes_counter();  // for sf
     void reset();
+    void make_lines();
 };
 
 
