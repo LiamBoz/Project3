@@ -12,6 +12,20 @@ dfs::dfs(Maze *maze){
     vertex_stack.emplace(make_pair(0,0));  //starting point
 }
 
+void dfs::reset() {
+    this->visited = std::vector<std::vector<int>>(maze->height, std::vector<int>(maze->width, 0));
+    this->parents = std::vector<std::vector<std::pair<int,int>>>(maze->width, std::vector<std::pair<int,int>>(maze->width, make_pair(-1,-1)));
+    vertex_stack = std::stack<std::pair<int,int>>();  //stack
+    vertex_stack.emplace(make_pair(0,0));  //starting point
+    start_time = std::chrono::steady_clock::time_point::min();
+    end_time = std::chrono::steady_clock::time_point::min();
+    step = 0;
+    steps_taken = 0;
+    finished = false;
+}
+
+
+
 bool dfs::can_visit_vertex(int x, int y, int direction) {
     int new_x = x + direction_list[direction].first;
     int new_y = y + direction_list[direction].second;
@@ -52,6 +66,7 @@ int dfs::step_forward() {
         current_backtrack.second = x;
         return 1;
     }
+
     //std::cout << y << " " << x << std::endl;
 
     maze->vertex_colors2[y][x] = {200,130,5, 100};
@@ -61,7 +76,8 @@ int dfs::step_forward() {
             int new_x = x + direction_list[i].first;
             int new_y = y + direction_list[i].second;
             visited[new_y][new_x] = 1;
-            vertex_stack.push(make_pair(new_x,new_y));;
+            vertex_stack.push(make_pair(new_x,new_y));
+            steps_taken++;
             //maze->vertex_colors[new_y][new_x] ={200,130,5, 200};
             parents[new_y][new_x] = make_pair(y,x);
             return -1;
@@ -69,7 +85,6 @@ int dfs::step_forward() {
     }
 
     maze->vertex_colors2[y][x] *= {255,255,255,100};
-    steps_taken++;
 
     vertex_stack.pop();
 

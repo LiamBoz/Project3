@@ -20,6 +20,7 @@ class bfs {
 public:
     int steps_taken = 0;
     bfs(Maze* maze);
+    void reset();
     bool can_visit_vertex(int x, int y, int direction);
     int step_forward();
 };

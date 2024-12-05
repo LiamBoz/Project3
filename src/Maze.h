@@ -31,6 +31,7 @@ public:
     void generate_maze();
     bool visitable_vertex(int x, int y);
     void reset();
+    void reset_colors();
     void make_lines();
 };
 

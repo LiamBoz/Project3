@@ -75,7 +75,6 @@ void Maze::generate_maze() {
             vertex_stack.pop();
         }
     }
-    make_lines();
 }
 
 void Maze::make_lines() {
@@ -181,6 +180,17 @@ void Maze::reset() {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             this->vertices[i][j] = 15;
+            this->vertex_colors[i][j] = sf::Color::White;
+            this->vertex_colors2[i][j] = sf::Color::White;
+        }
+    }
+}
+
+void Maze::reset_colors() {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            this->vertex_colors[i][j] = sf::Color::White;
+            this->vertex_colors2[i][j] = sf::Color::White;
         }
     }
 }

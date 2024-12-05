@@ -11,6 +11,19 @@ bfs::bfs(Maze *maze){
     end_time = std::chrono::steady_clock::time_point::min();
 }
 
+void bfs::reset() {
+    this->visited = std::vector<std::vector<int>>(maze->height, std::vector<int>(maze->width, 0));
+    this->parents = std::vector<std::vector<std::pair<int,int>>>(maze->width, std::vector<std::pair<int,int>>(maze->width, make_pair(0,0)));
+    vertex_queue = std::queue<std::pair<int,int>>();
+    vertex_queue.emplace(make_pair(0,0));
+    start_time = std::chrono::steady_clock::time_point::min();
+    end_time = std::chrono::steady_clock::time_point::min();
+    step = 0;
+    steps_taken = 0;
+    finished = false;
+}
+
+
 bool bfs::can_visit_vertex(int x, int y, int direction) {
     int new_x = x + direction_list[direction].first;
     int new_y = y + direction_list[direction].second;

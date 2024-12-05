@@ -20,6 +20,7 @@ class dfs {
 public:
     int steps_taken = 0;
     dfs(Maze* maze);
+    void reset();
     bool can_visit_vertex(int x, int y, int direction);
     int step_forward();  // make changes to update to the newest
 };
