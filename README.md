@@ -3,29 +3,16 @@
 
 ## Overview
 We will create a **317x317 Maze-Based Matrix** featuring:
-- **Entrance**: `[row/2, 0]` (middle-left).
-- **Exit**: `[317, row/2]` (middle-right).
+- **Entrance**: `[0, 0]` (top-left).
+- **Exit**: `[316, 316]` (bottom-right).
 - A **sprite** starting at the entrance that traverses the maze live, followed by a tail sprite.
 - **Live Statistics Counter** beneath the maze:
   - Nodes visited
   - Time taken
-  - Memory and space usage
-  - Other useful metrics (updated live and finalized at the end).
 
 ### Additional Features
-- **Add Maze Button**: Adds a new maze, allowing selection of its traversal algorithm.
-- **Start Button**: Runs all sprites traversing all mazes in sync.
-- **Algorithms**: Initially supporting BFS and A*, with plans to expand to:
-  - DFS
-  - Dijkstra’s
-  - Others in the future.
-
-### To Be Decided:
-- Will it be displayed in a website
-- What language will be used
-- What libraries/frameworks will be used
-- Will we use a library for random maze generation?
----
+- **New Maze Button**: Generates a new random maze to solve.
+- **Algorithms**: Initially supporting BFS and DFS.
 
 ## Contributing Guidelines
 Our **primary branch** is `main`. When working on new features, please adhere to the following guidelines:
