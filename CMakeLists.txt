@@ -17,8 +17,8 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(Project3
-        src/maze.cpp
-        src/maze.h
+        src/Maze.cpp
+        src/Maze.h
         main.cpp
         src/dfs.cpp
         src/dfs.h
